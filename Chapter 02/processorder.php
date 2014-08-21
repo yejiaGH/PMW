@@ -5,6 +5,7 @@
   $sparkqty = $_POST['sparkqty'];
   $address = $_POST['address'];
   $DOCUMENT_ROOT = $_SERVER['DOCUMENT_ROOT'];
+  echo $DOCUMENT_ROOT;
   $date = date('H:i, jS F Y');
 ?>
 <html>
@@ -67,9 +68,12 @@
 
 
 	// open file for appending
-	@ $fp = fopen("$DOCUMENT_ROOT/../orders/orders.txt", 'ab');
-
-	flock($fp, LOCK_EX);
+	//@ $fp = fopen("$DOCUMENT_ROOT/../orders/orders.txt", 'ab');
+	$filename = "$DOCUMENT_ROOT/PMW/orders/orders.txt";
+	$dir = dirname($filename);		
+	if(!is_dir($dir))mkdir($dir,0777,true);	//mkdir 的用法， 第二个参数是什么意思 0777表示最大的访问权限
+	@ $fp = fopen("$DOCUMENT_ROOT/PMW/orders/orders.txt", 'ab');
+	flock($fp, LOCK_EX); //锁定或释放文件， LOCK_EX 要取得共享锁定（读取的程序）
 
 	if (!$fp) {
 	  echo "<p><strong> Your order could not be processed at this time.
@@ -77,8 +81,8 @@
 	  exit;
 	}
 
-	fwrite($fp, $outputstring, strlen($outputstring));
-	flock($fp, LOCK_UN);
+	fwrite($fp, $outputstring, strlen($outputstring)); //strlen来获得字符串长度
+	flock($fp, LOCK_UN); // LOCK_UN要释放锁定，无论共享或独占
 	fclose($fp);
 
 	echo "<p>Order written.</p>";

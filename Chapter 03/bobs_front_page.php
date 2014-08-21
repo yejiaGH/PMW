@@ -4,7 +4,7 @@
                     'thermostat.jpg', 'wiper_blade.jpg',
                     'gasket.jpg', 'brake_pad.jpg');
 
-  shuffle($pictures);
+  shuffle($pictures); //内置shuffle函数
 ?>
 <html>
 <head>

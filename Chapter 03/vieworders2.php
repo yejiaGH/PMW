@@ -12,8 +12,8 @@
 <?php
   //Read in the entire file.
   //Each order becomes an element in the array
-  $orders= file("$DOCUMENT_ROOT/../orders/orders.txt");
-
+  //$orders= file("$DOCUMENT_ROOT/../orders/orders.txt");
+  $orders= file("$DOCUMENT_ROOT/PMW/orders/orders.txt");
   // count the number of orders in the array
   $number_of_orders = count($orders);
 
